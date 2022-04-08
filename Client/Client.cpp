@@ -74,10 +74,11 @@ void Client::send_file(string& file_name)
 	char* str = new char[save_message_size *4];
 	while (!F.eof()) {
 		F.getline(str, save_message_size * sizeof(char));
-		if (F.eof())break;
-		send_int(1);
 		string send(str);
-		send_message(send);
+		if (send.size() != 0) {
+			send_int(1);
+			send_message(send);
+		}
 	}
 	send_int(0);
 	F.close();
